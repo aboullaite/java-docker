@@ -1,12 +1,11 @@
-FROM adoptopenjdk/openjdk11:jdk-11.0.2.9 as build
-# RUN ["java", "-Xshare:dump"]
+FROM adoptopenjdk/openjdk11:jdk-11.0.2.9 As build
+RUN  apt-get update && apt-get upgrade && apt-get -y install build-essential
 COPY target/netty-example-1.0-SNAPSHOT.jar /opt/app/
-# Creating A List Of Application Classes
-RUN ["java", "-XX:DumpLoadedClassList=classes.lst", "-jar", "/opt/app/netty-example-1.0-SNAPSHOT.jar"]
-# Creating An Application Class-Data Archive
-RUN ["java", "-Xshare:dump", "-XX:DumpLoadedClassList=classes.lst", "XX:SharedArchiveFile=/opt/app/app-cds.jsa", "--class-path", "/opt/app/netty-example-1.0-SNAPSHOT.jar"]
+COPY dep/ /opt/app/dep/
+COPY touched.aotcfg /opt/app/
+RUN jaotc --output /opt/app/netty-example.so --compile-for-tiered  --compile-commands /opt/app/aot.cfg --module java.base --jar /opt/app/netty-example-1.0-SNAPSHOT.jar -J-cp -J"./:/opt/app/dep/*" --info
 
 FROM adoptopenjdk/openjdk11:jdk-11.0.2.9
-COPY --from=build /opt/app /opt/app
-# Using An Application Class-Data Archive
-CMD ["java","-Xshare:on", "XX:SharedArchiveFile=/opt/app/app-cds.jsa", "-jar", "/opt/app/netty-example-1.0-SNAPSHOT.jar"]
+COPY --from=build  /opt/app/netty-example.so /opt/app/
+COPY --from=build  /opt/app/netty-example-1.0-SNAPSHOT.jar /opt/app/
+CMD ["java", "-XX:AOTLibrary=/opt/app/netty-example.so", "-jar", "/opt/app/netty-example-1.0-SNAPSHOT.jar"]
