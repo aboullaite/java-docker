@@ -1,11 +1,9 @@
-FROM adoptopenjdk/openjdk11:jdk-11.0.2.9 As build
-RUN  apt-get update && apt-get upgrade && apt-get -y install build-essential
+FROM oracle/graalvm-ce:1.0.0-rc12 AS build
 COPY target/netty-example-1.0-SNAPSHOT.jar /opt/app/
-COPY dep/ /opt/app/dep/
-COPY touched.aotcfg /opt/app/
-RUN jaotc --output /opt/app/netty-example.so --compile-for-tiered  --compile-commands /opt/app/aot.cfg --module java.base --jar /opt/app/netty-example-1.0-SNAPSHOT.jar -J-cp -J"./:/opt/app/dep/*" --info
+COPY dep/svm-1.0.0-rc12.jar ${JAVA_HOME}/jre/lib/svm/builder/svm.jar
+WORKDIR /opt/app/
+RUN native-image --verbose -jar ./netty-example-1.0-SNAPSHOT.jar --static --delay-class-initialization-to-runtime=io.netty.handler.codec.http.HttpObjectEncoder -H:ReflectionConfigurationResources=netty_reflection_config.json -O1-H:Name=netty-native 
 
-FROM adoptopenjdk/openjdk11:jdk-11.0.2.9
-COPY --from=build  /opt/app/netty-example.so /opt/app/
-COPY --from=build  /opt/app/netty-example-1.0-SNAPSHOT.jar /opt/app/
-CMD ["java", "-XX:AOTLibrary=/opt/app/netty-example.so", "-jar", "/opt/app/netty-example-1.0-SNAPSHOT.jar"]
+FROM scratch
+COPY --from=build  /opt/app/netty-native /
+CMD ["/netty-native"]
