@@ -1,9 +1,12 @@
-FROM oracle/graalvm-ce:1.0.0-rc12 AS build
-COPY target/netty-example-1.0-SNAPSHOT.jar /opt/app/
-COPY dep/svm-1.0.0-rc12.jar ${JAVA_HOME}/jre/lib/svm/builder/svm.jar
-WORKDIR /opt/app/
-RUN native-image --verbose -jar ./netty-example-1.0-SNAPSHOT.jar --static --delay-class-initialization-to-runtime=io.netty.handler.codec.http.HttpObjectEncoder -H:ReflectionConfigurationResources=netty_reflection_config.json -O1-H:Name=netty-native 
+FROM adoptopenjdk/openjdk11:jdk-11.0.2.9 AS build
+RUN ["jlink", "--compress=2", \
+     "--module-path", "${JAVA_HOME}/jmods", \
+     "--add-modules", "java.base,java.logging,java.naming,java.xml,jdk.sctp,jdk.unsupported", \
+     "--strip-debug", "--no-header-files", "--no-man-pages", \
+     "--output", "/netty-runtime"]
 
-FROM scratch
-COPY --from=build  /opt/app/netty-native /
-CMD ["/netty-native"]
+FROM gcr.io/distroless/static
+COPY --from=build  /netty-runtime /opt/jdk/
+ENV PATH=$PATH:/opt/jdk/bin
+COPY target/netty-example-1.0-SNAPSHOT.jar /opt/app/
+CMD ["java", "-showversion", "-jar", "/opt/app/netty-example-1.0-SNAPSHOT.jar"]

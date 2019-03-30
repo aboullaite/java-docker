@@ -13,7 +13,6 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <netty.version>4.1.34.Final</netty.version>
-        <substratevm.version>1.0.0-rc13</substratevm.version>
 
     </properties>
 
@@ -23,12 +22,6 @@
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
             <version>${netty.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.oracle.substratevm</groupId>
-            <artifactId>svm</artifactId>
-            <version>1.0.0-rc12</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 
