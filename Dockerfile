@@ -1,4 +1,5 @@
 FROM adoptopenjdk/openjdk11:jdk-11.0.2.9 AS build
+# jdeps can help identify which modules an application uses
 RUN ["jlink", "--compress=2", \
      "--module-path", "${JAVA_HOME}/jmods", \
      "--add-modules", "java.base,java.logging,java.naming,java.xml,jdk.sctp,jdk.unsupported", \
