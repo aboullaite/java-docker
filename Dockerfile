@@ -1,5 +1,4 @@
 FROM adoptopenjdk/openjdk11:jdk-11.0.2.9 as build
-# RUN ["java", "-Xshare:dump"]
 COPY target/netty-example-1.0-SNAPSHOT.jar /opt/app/
 # Creating A List Of Application Classes
 RUN ["java", "-XX:DumpLoadedClassList=classes.lst", "-jar", "/opt/app/netty-example-1.0-SNAPSHOT.jar"]
