@@ -1,2 +1,3 @@
 **
+!dep/
 !target/netty-example*.jar
