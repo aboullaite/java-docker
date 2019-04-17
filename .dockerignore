@@ -1,2 +1,4 @@
 **
+!dep/
 !target/netty-example*.jar
+!aot.cfg
