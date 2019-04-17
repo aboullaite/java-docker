@@ -1,0 +1,3 @@
+FROM openjdk:11-slim
+COPY ./target/*.jar app.jar
+ENTRYPOINT ["java", "-XshowSettings:vm", "-XX:NativeMemoryTracking=summary", "-jar", "app.jar"]

@@ -1,0 +1,3 @@
+FROM lwieske/java-8:jre-8u121
+COPY ./target/*.jar app.jar
+ENTRYPOINT ["java", "-XshowSettings:vm", "-XX:NativeMemoryTracking=summary", "-jar", "app.jar"]
