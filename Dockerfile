@@ -4,7 +4,7 @@ COPY target/netty-example-1.0-SNAPSHOT.jar /opt/app/
 COPY dep/ /opt/app/dep/
 COPY aot.cfg /opt/app/
 ## aot.cfg is containing all methods that have been touched at run time (-XX:+PrintTouchedMethodsAtExit)
-RUN jaotc --output /opt/app/netty-example.so --compile-for-tiered  --compile-commands /opt/app/aot.cfg --module java.base --jar /opt/app/netty-example-1.0-SNAPSHOT.jar -J-cp -J"./:/opt/app/dep/*" --info
+RUN jaotc --output /opt/app/netty-example.so --compile-commands /opt/app/aot.cfg --module java.base --jar /opt/app/netty-example-1.0-SNAPSHOT.jar -J-cp -J"./:/opt/app/dep/*" --info
 
 FROM openjdk:11-slim
 COPY --from=build  /opt/app/netty-example.so /opt/app/
