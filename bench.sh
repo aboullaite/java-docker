@@ -1,5 +1,5 @@
 # Our containers
-declare -a jcon=("aot" "cdc" "plain" "mod" "graal")
+declare -a jcon=("plain" "mod" "aot" "cdc" "graal")
 
 # Make sure that no container already exist & run the containers
 for i in "${jcon[@]}"
