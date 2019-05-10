@@ -1,4 +1,4 @@
-FROM oracle/graalvm-ce:1.0.0-rc15 AS build
+FROM oracle/graalvm-ce:1.0.0-rc16 AS build
 COPY target/netty-example-1.0-SNAPSHOT.jar /opt/app/
 COPY dep/svm-1.0.0*.jar ${JAVA_HOME}/jre/lib/svm/builder/svm.jar
 WORKDIR /opt/app/
