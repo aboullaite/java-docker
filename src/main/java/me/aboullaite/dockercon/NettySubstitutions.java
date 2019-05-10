@@ -25,13 +25,6 @@ final class Target_io_netty_util_internal_PlatformDependent0 {
     private static long ADDRESS_FIELD_OFFSET;
 }
 
-@TargetClass(className = "io.netty.util.internal.CleanerJava6")
-final class Target_io_netty_util_internal_CleanerJava6 {
-    @Alias @RecomputeFieldValue(kind = Kind.FieldOffset, //
-            declClassName = "java.nio.DirectByteBuffer", //
-            name = "cleaner") //
-    private static long CLEANER_FIELD_OFFSET;
-}
 
 @TargetClass(className = "io.netty.util.internal.shaded.org.jctools.util.UnsafeRefArrayAccess")
 final class Target_io_netty_util_internal_shaded_org_jctools_util_UnsafeRefArrayAccess {
