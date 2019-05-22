@@ -1,5 +1,5 @@
 FROM adoptopenjdk/openjdk11:jdk-11.0.2.9 As build
-RUN  apt-get update && apt-get upgrade && apt-get -y install build-essential
+RUN  apt-get update && apt-get -y upgrade && apt-get -y install build-essential
 COPY target/netty-example-1.0-SNAPSHOT.jar /opt/app/
 COPY dep/ /opt/app/dep/
 COPY aot.cfg /opt/app/
