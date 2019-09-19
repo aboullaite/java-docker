@@ -5,7 +5,7 @@ declare -a jcon=("plain" "mod" "aot" "cdc" "graal")
 for i in "${jcon[@]}"
 do
     #Clean up old containers
-    docker rm dc/$i > /dev/null
+    docker rm $i > /dev/null
     docker run --name $i dc/$i > /dev/null
 done
 # Get the startup time for each container
