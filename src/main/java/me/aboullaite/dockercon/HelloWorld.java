@@ -7,6 +7,8 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.channel.ChannelOption;
+
 
 public class HelloWorld {
 
@@ -17,7 +19,9 @@ public class HelloWorld {
         EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
 
         try {
+         // Create and configure a new pipeline for a new channel.
             ServerBootstrap bootstrap = new ServerBootstrap()
+                    .option(ChannelOption.SO_BACKLOG, 1024)
                     .group(eventLoopGroup)
                     .handler(new LoggingHandler(LogLevel.INFO))
                     .childHandler(new HttpServerInitializer())

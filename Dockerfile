@@ -1,8 +1,8 @@
-FROM oracle/graalvm-ce:19.1.0 AS build
+FROM oracle/graalvm-ce:19.2.0.1 AS build
 COPY target/netty-example-1.0-SNAPSHOT.jar /opt/app/
 WORKDIR /opt/app/
 RUN gu install native-image
-RUN native-image --verbose -jar ./netty-example-1.0-SNAPSHOT.jar --static --initialize-at-run-time=io.netty.handler.codec.http.HttpObjectEncoder -H:ReflectionConfigurationResources=netty_reflection_config.json --report-unsupported-elements-at-runtime -O1 -H:Name=netty-native
+RUN native-image -jar ./netty-example-1.0-SNAPSHOT.jar 
 
 FROM scratch
 COPY --from=build  /opt/app/netty-native /
