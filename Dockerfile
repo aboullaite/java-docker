@@ -1,6 +1,6 @@
 FROM adoptopenjdk/openjdk13:jdk-13_33 as build
 COPY target/netty-example-1.0-SNAPSHOT.jar /opt/app/app.jar
-RUN ["java", "-XX:ArchiveClassesAtExit=app-cds.jsa", "-jar", "/opt/app/app.jar"]
+RUN ["java", "-XX:ArchiveClassesAtExit=/opt/app/app-cds.jsa", "-jar", "/opt/app/app.jar"]
 
 ### Before java 13 ###
 # Creating A List Of Application Classes
