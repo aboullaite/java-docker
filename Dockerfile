@@ -10,5 +10,5 @@ FROM gcr.io/distroless/base
 COPY --from=build  /netty-runtime /opt/jdk
 COPY --from=build /lib/x86_64-linux-gnu/libz.so.1 /lib/x86_64-linux-gnu/libz.so.1
 ENV PATH=$PATH:/opt/jdk/bin
-COPY target/netty-example-1.0-SNAPSHOT.jar /opt/app/
+COPY target/netty-example-1.0-SNAPSHOT.jar /opt/app/app.jar
 CMD ["java", "-showversion", "-jar", "/opt/app/netty-example-1.0-SNAPSHOT.jar"]
