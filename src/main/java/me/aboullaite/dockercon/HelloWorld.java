@@ -18,9 +18,8 @@ public class HelloWorld {
         EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
 
         try {
-         // Create and configure a new pipeline for a new channel.
-                ServerBootstrap bootstrap = new ServerBootstrap()
-                    .option(ChannelOption.SO_BACKLOG, 1024)
+            ServerBootstrap bootstrap = new ServerBootstrap()
+                    .group(eventLoopGroup)
                     .handler(new LoggingHandler(LogLevel.INFO))
                     .childHandler(new HttpServerInitializer())
                     .channel(NioServerSocketChannel.class);
