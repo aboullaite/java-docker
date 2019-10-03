@@ -51,7 +51,7 @@ We're interested to diagnostic the memoty, so we run the command:
     $ `./jcmd 1 VM.native_memory scale=MB`
 
 This shows how the JVM uses it's memory! Note that the total commited memory is more thatn 500M!!! What is hapenning ?
-Running `docker stats sb500` shows that the're were a lot of read/write on the disk! that's a lot for an app that does nothing! The app is actually swapping, to effectively check that, let's re-run the container and disable the swapping: `ocker run -p 8080:8080 -m 500M --memory-swappiness --name sb500 dc/sbj8` an the container is back to death. You can verify using `docker inspect` command!
+Running `docker stats sb500` shows that the're were a lot of read/write on the disk! that's a lot for an app that does nothing! The app is actually swapping, to effectively check that, let's re-run the container and disable the swapping: `docker run -p 8080:8080 -m 500M --memory-swappiness --name sb500 dc/sbj8` an the container is back to death. You can verify using `docker inspect` command!
 
 ### Test app behavior with java 11
 1/ put the `Dockerfile.java11` in the root of the Spring perclinic app. and build the image (`docker build -t aboullaite/sbj11 -f Dockerfile.java11`)
