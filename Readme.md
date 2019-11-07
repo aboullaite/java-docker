@@ -20,7 +20,7 @@ the `bench.sh` run each container and print at the end the total size of the ima
 ```
 Image   size        Startup
 aot     463.864MB   654 ms
-cdc     443.183MB   689 ms
+cds     443.183MB   689 ms
 plain   425.875MB   740 ms
 alpine  48.536MB    765 ms
 mod     55.6048MB   686 ms
