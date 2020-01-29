@@ -7,7 +7,7 @@ COPY dep/ /opt/app/dep/
 COPY aot.cfg /opt/app/
 RUN jaotc --output /opt/app/app-native.so --compile-commands /opt/app/aot.cfg --module java.base --jar /opt/app/app.jar -J-cp -J"./:/opt/app/dep/*" --info
 
-FROM adoptopenjdk/openjdk13:jdk-13.0.1_9-slim
+FROM adoptopenjdk/openjdk13:adoptopenjdk/openjdk13:jdk-13.0.1_9-slim
 COPY --from=build  /opt/app/app-native.so /opt/app/
 COPY --from=build  /opt/app/app.jar /opt/app/
 CMD ["java", "-XX:AOTLibrary=/opt/app/app-native.so", "-jar", "/opt/app/app.jar"]
