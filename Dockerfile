@@ -1,10 +1,10 @@
-FROM adoptopenjdk/openjdk13:jdk-13_33 AS build
+FROM adoptopenjdk/openjdk13:jdk-13.0.1_9-slim AS build
 # jdeps can help identify which modules an application uses
 RUN ["jlink", "--compress=2", \
-     "--module-path", "${JAVA_HOME}/jmods", \
-     "--add-modules", "java.base,java.logging,java.naming,java.xml,jdk.sctp,jdk.unsupported", \
-     "--strip-java-debug-attributes", "--no-header-files", "--no-man-pages", \
-     "--output", "/netty-runtime"]
+    "--module-path", "${JAVA_HOME}/jmods", \
+    "--add-modules", "java.base,java.logging,java.naming,java.xml,jdk.sctp,jdk.unsupported", \
+    "--strip-java-debug-attributes", "--no-header-files", "--no-man-pages", \
+    "--output", "/netty-runtime"]
 
 FROM gcr.io/distroless/base
 COPY --from=build  /netty-runtime /opt/jdk
