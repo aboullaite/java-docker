@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk13:jdk-13_33 as build
+FROM adoptopenjdk/openjdk13:jdk-13.0.1_9-slim as build
 COPY target/netty-example-1.0-SNAPSHOT.jar /opt/app/app.jar
 RUN ["java", "-XX:ArchiveClassesAtExit=/opt/app/app-cds.jsa", "-jar", "/opt/app/app.jar"]
 
@@ -8,7 +8,7 @@ RUN ["java", "-XX:ArchiveClassesAtExit=/opt/app/app-cds.jsa", "-jar", "/opt/app/
 # Creating An Application Class-Data Archive
 #RUN ["java","-Xshare:dump", "-XX:DumpLoadedClassList=classes.lst", "-XX:SharedArchiveFile=/opt/app/app-cds.jsa", "--class-path", "/opt/app/app.jar"]
 
-FROM adoptopenjdk/openjdk13:jdk-13_33
+FROM adoptopenjdk/openjdk13:jdk-13.0.1_9-slim
 COPY --from=build /opt/app /opt/app
 # Using An Application Class-Data Archive
 CMD ["java","-Xshare:on", "-XX:SharedArchiveFile=/opt/app/app-cds.jsa", "-jar", "/opt/app/app.jar"]
