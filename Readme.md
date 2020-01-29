@@ -3,14 +3,14 @@
 This repo contains demo materials for:
 
 - Tips minimize java containers images
-- Tricks for fast startup java apps running in containrs
+- Tricks for fast startup java apps running in containers
 - gotchas and issues while running java apps in containers and the improvements that has been made
 
-The repo is splitte into multiple branchs, each contains a specific topic. The `Dockerfile`s uses the generated jar after running the build (`mvn clean package`). The build step could be integrated in the provided `Dockerfile`s, but it would slow the demoing the intetntion of this repo, so I kept it outside. Below branch details:
+The repo is split into multiple branches, each contains a specific topic. The `Dockerfile`s uses the generated jar after running the build (`mvn clean package`). The build step could be integrated in the provided `Dockerfile`s, but it would slow the demoing the intention of this repo, so I kept it outside. Below branch details:
 
 - `master`: simple netty app, running in a container
 - `mod`: Using Project Jigsaw’s `jlink`, that offers the ability to produce a minimal JRE based on the modules our application requires.
-- `alpine`: This uses the early access alpine build of java 13, based on project protola: the community effort to port java to `musl`
+- `alpine`: This uses the early access alpine build of java 13, based on project Portola: the community effort to port java to `musl`
 - `cdc`: This showcase the class data sharing (CDS) feature. CDC offers dynamic sharing of data between multiple Java Virtual Machines (JVM), which helps to reduce the startup time and memory footprint.
 - `aot`: Using Ahead Of Time compilation. It compiles the bytecode such that it is completely static which should lead to the fastest startup and initial execution speed.
 - `graal`: This part uses graal VM to create native images for existing JVM-based applications.
