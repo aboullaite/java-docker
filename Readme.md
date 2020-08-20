@@ -18,7 +18,7 @@ The repo is split into multiple branches, each contains a specific topic. The `D
 
 ### Benchmarking
 
-the `bench.sh` run each container and print at the end the total size of the image + the time it takes for teh container to run! for me I named the images: `plain`, `cdc`,`aot`,`graal` and `mod`. I prefixed each of them with `dc`! Executing the scripts shows below results in my machine:
+the `bench.sh` run each container and print at the end the total size of the image + the time it takes for teh container to run! for me I named the images: `plain`, `cdc`,`aot`,`graal`, `alpine` and `mod`. I prefixed each of them with `dj`! Executing the scripts shows below results in my machine:
 
 ```
 Image   size        Startup
