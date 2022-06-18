@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk13:jdk-13.0.1_9-slim AS build
+FROM amazoncorretto:18 AS build
 # jdeps can help identify which modules an application uses
 RUN ["jlink", "--compress=2", \
     "--module-path", "${JAVA_HOME}/jmods", \
@@ -8,7 +8,6 @@ RUN ["jlink", "--compress=2", \
 
 FROM gcr.io/distroless/base
 COPY --from=build  /netty-runtime /opt/jdk
-COPY --from=build /lib/x86_64-linux-gnu/libz.so.1 /lib/x86_64-linux-gnu/libz.so.1
 ENV PATH=$PATH:/opt/jdk/bin
 COPY target/netty-example-1.0-SNAPSHOT.jar /opt/app/app.jar
 CMD ["java", "-showversion", "-jar", "/opt/app/app.jar"]
