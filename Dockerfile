@@ -1,9 +1,4 @@
-FROM alpine:3.11 AS build
-ENV JAVA_HOME /opt/jdk
-ENV PATH $JAVA_HOME/bin:$PATH
-ADD https://download.java.net/java/early_access/alpine/33/binaries/openjdk-14-ea+33_linux-x64-musl_bin.tar.gz $JAVA_HOME/openjdk.tar.gz
-RUN tar --extract --file $JAVA_HOME/openjdk.tar.gz --directory "$JAVA_HOME" --strip-components 1; \
-    rm $JAVA_HOME/openjdk.tar.gz;
+FROM amazoncorretto:18-alpine as build
 # jdeps can help identify which modules an application uses
 RUN ["jlink", "--compress=2", \
     "--module-path", "/opt/jdk/jmods/", \
@@ -11,7 +6,7 @@ RUN ["jlink", "--compress=2", \
     "--no-header-files", "--no-man-pages", \
     "--output", "/netty-runtime"]
 
-FROM alpine:3.11
+FROM alpine:3.15
 COPY --from=build  /netty-runtime /opt/jdk
 ENV PATH=$PATH:/opt/jdk/bin
 COPY target/netty-example-1.0-SNAPSHOT.jar /opt/app/
