@@ -1,4 +1,4 @@
-FROM oracle/graalvm-ce:19.3.1-java11 AS build
+FROM ghcr.io/graalvm/graalvm-ce:22.1.0 AS build
 RUN gu install native-image
 COPY target/netty-example-1.0-SNAPSHOT.jar /opt/app/
 WORKDIR /opt/app/
