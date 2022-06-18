@@ -1,3 +1,3 @@
-FROM lwieske/java-8:server-jre-8u121
+FROM amazoncorretto:17
 COPY app.jar .
 ENTRYPOINT ["java", "-XshowSettings:vm", "-XX:NativeMemoryTracking=summary", "-jar", "app.jar"]
