@@ -26,6 +26,7 @@ $ docker build -t icrac .
 $ docker run --name crac icrac
 # In another shell, get inside the container
 $ docker exec -it crac bash
+$ curl http://127.0.0.1:8090
 $ jcmd /opt/app/app.jar JDK.checkpoint
 ```
 Checkpoint unfortunately fails
