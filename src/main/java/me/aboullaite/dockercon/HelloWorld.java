@@ -27,10 +27,12 @@ public class HelloWorld {
                     .channel(NioServerSocketChannel.class);
 
             Channel ch = bootstrap.bind(HTTP_PORT).sync().channel();
-            System.exit(0);
-            ch.closeFuture().sync();
+            //System.exit(0);
+            ch.close();
         } finally {
             eventLoopGroup.shutdownGracefully();
+            System.out.printf("Sleeping for 2 min! Time to generate that Coordinated Restore at Checkpoint");
+            Thread.sleep(120000);
         }
     }
 }
